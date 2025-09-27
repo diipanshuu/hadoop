@@ -22,7 +22,7 @@ cd hadoop
 Alternatively, start manually:
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 ## 🌐 Web Interfaces
@@ -132,30 +132,30 @@ docker exec hadoop-resourcemanager hadoop jar \
 
 ```bash
 # Start all services
-docker-compose up -d
+docker compose up -d
 
 # View logs
-docker-compose logs -f
+docker compose logs -f
 
 # Check service status
-docker-compose ps
+docker compose ps
 ```
 
 ### Stop the Cluster
 
 ```bash
 # Stop all services (keeps data)
-docker-compose down
+docker compose down
 
 # Stop and remove all data
-docker-compose down -v
+docker compose down -v
 ```
 
 ### Scale DataNodes
 
 ```bash
 # Scale to 3 DataNodes
-docker-compose up -d --scale datanode1=3
+docker compose up -d --scale datanode1=3
 ```
 
 ## 🗂️ Data Persistence
@@ -183,15 +183,15 @@ docker run --rm -v hadoop-datanode1-data:/data -v $(pwd):/backup busybox tar czf
 **Solutions**:
 ```bash
 # Check logs for specific service
-docker-compose logs namenode
+docker compose logs namenode
 
 # Ensure sufficient memory (8GB+ recommended)
 docker system df
 docker system prune
 
 # Reset volumes if corrupted
-docker-compose down -v
-docker-compose up -d
+docker compose down -v
+docker compose up -d
 ```
 
 #### 2. NameNode Safe Mode
@@ -265,9 +265,9 @@ docker network ls
 docker network inspect hadoop-network
 
 # Restart with fresh network
-docker-compose down
+docker compose down
 docker network prune
-docker-compose up -d
+docker compose up -d
 ```
 
 #### 7. Hue Login Issues
@@ -278,15 +278,15 @@ docker-compose up -d
 - Default Hue login: Create an account on first access
 - Reset Hue database:
 ```bash
-docker-compose exec hue /usr/share/hue/build/env/bin/hue migrate
-docker-compose exec hue /usr/share/hue/build/env/bin/hue createsuperuser
+docker compose exec hue /usr/share/hue/build/env/bin/hue migrate
+docker compose exec hue /usr/share/hue/build/env/bin/hue createsuperuser
 ```
 
 ### Health Checks
 
 ```bash
 # Check all service health
-docker-compose ps
+docker compose ps
 
 # Test HDFS connectivity
 docker exec hadoop-namenode hdfs dfs -ls /
@@ -302,12 +302,12 @@ docker exec hadoop-resourcemanager yarn jar /opt/hadoop/share/hadoop/mapreduce/h
 
 ```bash
 # View logs for specific services
-docker-compose logs namenode
-docker-compose logs resourcemanager
-docker-compose logs hue
+docker compose logs namenode
+docker compose logs resourcemanager
+docker compose logs hue
 
 # Follow logs in real-time
-docker-compose logs -f --tail=100 namenode
+docker compose logs -f --tail=100 namenode
 ```
 
 ## 🔐 Security Considerations

@@ -15,7 +15,7 @@ if ! command -v docker &> /dev/null; then
     exit 1
 fi
 
-if ! command -v docker-compose &> /dev/null; then
+if ! docker compose version &> /dev/null; then
     echo "Error: Docker Compose is not installed or not in PATH"
     exit 1
 fi
@@ -28,11 +28,11 @@ fi
 
 # Pull the latest images
 echo "Pulling latest Docker images..."
-docker-compose pull
+docker compose pull
 
 # Start the services
 echo "Starting Hadoop services..."
-docker-compose up -d
+docker compose up -d
 
 # Wait for services to be healthy
 echo "Waiting for services to start..."
@@ -42,7 +42,7 @@ sleep 30
 echo "========================================="
 echo "Service Status:"
 echo "========================================="
-docker-compose ps
+docker compose ps
 
 echo ""
 echo "========================================="
@@ -58,7 +58,7 @@ echo "========================================="
 
 echo ""
 echo "Cluster is starting up. Please wait a few minutes for all services to be fully operational."
-echo "You can monitor the logs with: docker-compose logs -f"
+echo "You can monitor the logs with: docker compose logs -f"
 echo ""
-echo "To stop the cluster: docker-compose down"
-echo "To stop and remove volumes: docker-compose down -v"
+echo "To stop the cluster: docker compose down"
+echo "To stop and remove volumes: docker compose down -v"

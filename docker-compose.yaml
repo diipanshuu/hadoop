@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   namenode:
     image: apache/hadoop:3.3.6
@@ -9,22 +7,11 @@ services:
       - "9870:9870"  # NameNode Web UI
       - "8020:8020"  # NameNode RPC
     environment:
-      - CLUSTER_NAME=hadoop-cluster
-      - CORE_CONF_fs_defaultFS=hdfs://namenode:8020
-      - CORE_CONF_hadoop_http_staticuser_user=root
-      - CORE_CONF_hadoop_proxyuser_hue_hosts=*
-      - CORE_CONF_hadoop_proxyuser_hue_groups=*
-      - HDFS_CONF_dfs_webhdfs_enabled=true
-      - HDFS_CONF_dfs_permissions_enabled=false
-      - HDFS_CONF_dfs_nameservices=hdfs-cluster
-      - HDFS_CONF_dfs_ha_namenodes_hdfs___cluster=namenode
-      - HDFS_CONF_dfs_namenode_rpc___address_hdfs___cluster_namenode=namenode:8020
-      - HDFS_CONF_dfs_namenode_http___address_hdfs___cluster_namenode=namenode:9870
-      - HDFS_CONF_dfs_replication=2
-      - HDFS_CONF_dfs_namenode_name_dir=/hadoop/dfs/name
+      CLUSTER_NAME: hadoop-cluster
+    env_file:
+      - ./hadoop.env
     volumes:
       - namenode-data:/hadoop/dfs/name
-      - ./hadoop-config:/opt/hadoop/etc/hadoop
     networks:
       - hadoop-network
     command: ["hdfs", "namenode"]
@@ -40,17 +27,10 @@ services:
     hostname: datanode1
     ports:
       - "9864:9864"  # DataNode Web UI
-    environment:
-      - CORE_CONF_fs_defaultFS=hdfs://namenode:8020
-      - CORE_CONF_hadoop_http_staticuser_user=root
-      - HDFS_CONF_dfs_webhdfs_enabled=true
-      - HDFS_CONF_dfs_permissions_enabled=false
-      - HDFS_CONF_dfs_datanode_data_dir=/hadoop/dfs/data
-      - HDFS_CONF_dfs_datanode_http___address=0.0.0.0:9864
-      - HDFS_CONF_dfs_replication=2
+    env_file:
+      - ./hadoop.env
     volumes:
       - datanode1-data:/hadoop/dfs/data
-      - ./hadoop-config:/opt/hadoop/etc/hadoop
     networks:
       - hadoop-network
     depends_on:
@@ -69,17 +49,10 @@ services:
     hostname: datanode2
     ports:
       - "9865:9864"  # DataNode Web UI (different host port)
-    environment:
-      - CORE_CONF_fs_defaultFS=hdfs://namenode:8020
-      - CORE_CONF_hadoop_http_staticuser_user=root
-      - HDFS_CONF_dfs_webhdfs_enabled=true
-      - HDFS_CONF_dfs_permissions_enabled=false
-      - HDFS_CONF_dfs_datanode_data_dir=/hadoop/dfs/data
-      - HDFS_CONF_dfs_datanode_http___address=0.0.0.0:9864
-      - HDFS_CONF_dfs_replication=2
+    env_file:
+      - ./hadoop.env
     volumes:
       - datanode2-data:/hadoop/dfs/data
-      - ./hadoop-config:/opt/hadoop/etc/hadoop
     networks:
       - hadoop-network
     depends_on:
@@ -99,24 +72,8 @@ services:
     ports:
       - "8088:8088"  # ResourceManager Web UI
       - "8032:8032"  # ResourceManager RPC
-    environment:
-      - CORE_CONF_fs_defaultFS=hdfs://namenode:8020
-      - CORE_CONF_hadoop_http_staticuser_user=root
-      - YARN_CONF_yarn_resourcemanager_hostname=resourcemanager
-      - YARN_CONF_yarn_resourcemanager_bind___host=0.0.0.0
-      - YARN_CONF_yarn_resourcemanager_address=resourcemanager:8032
-      - YARN_CONF_yarn_resourcemanager_scheduler___address=resourcemanager:8030
-      - YARN_CONF_yarn_resourcemanager_resource___tracker___address=resourcemanager:8031
-      - YARN_CONF_yarn_resourcemanager_admin___address=resourcemanager:8033
-      - YARN_CONF_yarn_resourcemanager_webapp___address=resourcemanager:8088
-      - YARN_CONF_yarn_timeline___service_enabled=false
-      - YARN_CONF_mapreduce_map_output_compress=true
-      - YARN_CONF_mapred_map_output_compress_codec=org.apache.hadoop.io.compress.SnappyCodec
-      - YARN_CONF_yarn_nodemanager_resource_memory___mb=4096
-      - YARN_CONF_yarn_scheduler_maximum___allocation___mb=4096
-      - YARN_CONF_yarn_nodemanager_vmem___check___enabled=false
-    volumes:
-      - ./hadoop-config:/opt/hadoop/etc/hadoop
+    env_file:
+      - ./hadoop.env
     networks:
       - hadoop-network
     depends_on:
@@ -135,24 +92,8 @@ services:
     hostname: nodemanager1
     ports:
       - "8042:8042"  # NodeManager Web UI
-    environment:
-      - CORE_CONF_fs_defaultFS=hdfs://namenode:8020
-      - CORE_CONF_hadoop_http_staticuser_user=root
-      - YARN_CONF_yarn_resourcemanager_hostname=resourcemanager
-      - YARN_CONF_yarn_resourcemanager_address=resourcemanager:8032
-      - YARN_CONF_yarn_resourcemanager_scheduler___address=resourcemanager:8030
-      - YARN_CONF_yarn_resourcemanager_resource___tracker___address=resourcemanager:8031
-      - YARN_CONF_yarn_nodemanager_aux___services=mapreduce_shuffle
-      - YARN_CONF_yarn_nodemanager_aux___services_mapreduce___shuffle_class=org.apache.hadoop.mapred.ShuffleHandler
-      - YARN_CONF_yarn_nodemanager_bind___host=0.0.0.0
-      - YARN_CONF_yarn_nodemanager_hostname=nodemanager1
-      - YARN_CONF_yarn_nodemanager_webapp___address=nodemanager1:8042
-      - YARN_CONF_yarn_nodemanager_resource_memory___mb=4096
-      - YARN_CONF_yarn_nodemanager_resource_cpu___vcores=4
-      - YARN_CONF_yarn_nodemanager_vmem___check___enabled=false
-      - YARN_CONF_yarn_nodemanager_disk___health___checker_enable=false
-    volumes:
-      - ./hadoop-config:/opt/hadoop/etc/hadoop
+    env_file:
+      - ./hadoop.env
     networks:
       - hadoop-network
     depends_on:
@@ -171,17 +112,8 @@ services:
     hostname: historyserver
     ports:
       - "19888:19888"  # History Server Web UI
-    environment:
-      - CORE_CONF_fs_defaultFS=hdfs://namenode:8020
-      - CORE_CONF_hadoop_http_staticuser_user=root
-      - YARN_CONF_yarn_resourcemanager_hostname=resourcemanager
-      - MAPRED_CONF_mapreduce_framework_name=yarn
-      - MAPRED_CONF_mapreduce_jobhistory_address=historyserver:10020
-      - MAPRED_CONF_mapreduce_jobhistory_webapp_address=historyserver:19888
-      - MAPRED_CONF_mapreduce_jobhistory_intermediate___done___dir=/mr-history/tmp
-      - MAPRED_CONF_mapreduce_jobhistory_done___dir=/mr-history/done
-    volumes:
-      - ./hadoop-config:/opt/hadoop/etc/hadoop
+    env_file:
+      - ./hadoop.env
     networks:
       - hadoop-network
     depends_on:
