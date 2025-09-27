@@ -1,46 +1,179 @@
-# Getting Started with Create React App
+# 🐘 Hadoop Ecosystem Simulator
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An interactive web application that simulates the Hadoop ecosystem, providing visual insights into HDFS, YARN, and cluster components with real-time monitoring and educational features.
 
-## Available Scripts
+## ✨ Features
 
-In the project directory, you can run:
+### 🏗️ Architecture Overview
+- Interactive Hadoop ecosystem architecture diagram
+- Visual representation of NameNode, DataNode, ResourceManager, and NodeManager
+- Step-by-step HDFS data flow explanation
+- YARN application lifecycle visualization
+- Educational tooltips and component explanations
 
-### `npm start`
+### 📁 HDFS File Browser
+- Interactive file system browser with folder navigation
+- Drag-and-drop file operations simulation
+- File upload/download simulation
+- Real-time file system operations
+- Breadcrumb navigation
+- File metadata display (size, replication, blocks)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### ⚙️ YARN Job Tracker
+- Real-time job monitoring and tracking
+- Multiple job types support (MapReduce, Spark, Hive)
+- Job lifecycle visualization (stages, progress, containers)
+- Interactive job submission
+- Auto-refresh functionality
+- Container allocation and status tracking
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### 📊 Cluster Monitoring Dashboard
+- Real-time system metrics visualization
+- Interactive charts and graphs using Recharts
+- Resource utilization monitoring (CPU, Memory, Storage)
+- Network I/O and throughput metrics
+- Active job history tracking
+- Cluster health status indicators
 
-### `npm test`
+### 🖥️ Node Status Management
+- Comprehensive node health monitoring
+- Real-time metrics for all Hadoop nodes
+- Health status filtering (Healthy, Warning, Critical)
+- Detailed system metrics (CPU, Memory, Disk, Heap)
+- Service status tracking
+- Heartbeat monitoring
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🚀 Technology Stack
 
-### `npm run build`
+- **Frontend Framework**: React 18+ with TypeScript
+- **Styling**: Styled Components for component-level styling
+- **Animations**: Framer Motion for smooth animations and transitions
+- **Charts**: Recharts for interactive data visualization
+- **Icons**: Custom emoji icons for better cross-platform compatibility
+- **Drag & Drop**: @dnd-kit for drag-and-drop functionality
+- **Build Tool**: Create React App with TypeScript template
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🛠️ Installation & Setup
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Prerequisites
+- Node.js 18+ 
+- npm or yarn package manager
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Installation Steps
 
-### `npm run eject`
+1. **Navigate to the app directory**
+```bash
+cd hadoop-web-app
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+2. **Install dependencies**
+```bash
+npm install
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. **Start development server**
+```bash
+npm start
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+4. **Build for production**
+```bash
+CI=false npm run build
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+The application will be available at `http://localhost:3000`
 
-## Learn More
+## 🎯 Usage Guide
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Navigation
+The application features a tabbed interface with five main sections:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. **Architecture** - Overview of Hadoop ecosystem components
+2. **HDFS Browser** - File system navigation and operations
+3. **YARN Jobs** - Job monitoring and management  
+4. **Cluster Monitoring** - Real-time system metrics
+5. **Node Status** - Detailed node health information
+
+### Interactive Features
+
+#### File Operations
+- Click folders to navigate through the HDFS directory structure
+- Use toolbar buttons for upload, download, delete, and create operations
+- Drag and drop files in the designated drop zone
+
+#### Job Management
+- Submit new jobs using the "Submit Job" button
+- Toggle auto-refresh to see real-time updates
+- Monitor job progress, stages, and container allocation
+
+#### Monitoring
+- View real-time charts that update automatically
+- Filter nodes by health status (All, Healthy, Warning, Critical)
+- Monitor system metrics with color-coded progress bars
+
+## 📱 Responsive Design
+
+The application is fully responsive and works seamlessly across:
+- Desktop computers (1920px and above)
+- Laptops and tablets (768px - 1919px)
+- Mobile devices (320px - 767px)
+
+## 🎨 Design Features
+
+### Visual Elements
+- **Modern UI**: Clean, professional interface with glassmorphism effects
+- **Color Coding**: Intuitive color schemes for different states (healthy=green, warning=orange, error=red)
+- **Smooth Animations**: Framer Motion powered transitions and micro-interactions
+- **Interactive Charts**: Hover effects, tooltips, and responsive data visualization
+
+### Educational Aspects
+- Step-by-step process explanations
+- Interactive component descriptions
+- Real-time data flow demonstrations
+- Comprehensive system monitoring
+
+## 📊 Data Simulation
+
+The simulator includes realistic data for:
+
+### HDFS Structure
+```
+/
+├── user/
+│   ├── hadoop/
+│   │   ├── input.txt (1.2 MB, 3 replicas, 1 block)
+│   │   └── wordcount-output/
+│   │       └── part-r-00000 (856 KB, 3 replicas, 1 block)
+│   └── data/
+│       └── sales.csv (45.7 MB, 3 replicas, 4 blocks)
+└── tmp/
+```
+
+### Node Configuration
+- **NameNode**: 10.0.1.10:9870 (HDFS Master)
+- **DataNodes**: 10.0.1.11:9864, 10.0.1.12:9864 (HDFS Workers)
+- **ResourceManager**: 10.0.1.20:8088 (YARN Master)
+- **NodeManager**: 10.0.1.21:8042 (YARN Worker)
+
+## 🌟 Key Highlights
+
+- **Educational Focus**: Designed for learning Hadoop concepts
+- **Real-time Simulation**: Dynamic updates and live data
+- **Interactive Experience**: Click, drag, and explore features
+- **Professional UI**: Enterprise-grade design and animations
+- **Cross-platform**: Works on all modern browsers and devices
+- **Performance Optimized**: Efficient rendering and smooth interactions
+
+## 📖 Learning Objectives
+
+This simulator helps users understand:
+- Hadoop distributed file system (HDFS) architecture
+- YARN resource management and job scheduling
+- Cluster monitoring and maintenance
+- Node health and system metrics
+- Data flow between Hadoop components
+- Real-world cluster operations and troubleshooting
+
+---
+
+**Built with ❤️ for the Hadoop community**

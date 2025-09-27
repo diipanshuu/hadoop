@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaServer, FaDatabase, FaCogs, FaNetworkWired, FaCheckCircle, FaExclamationTriangle, FaTimesCircle, FaHeart, FaMemory, FaMicrochip, FaHdd } from 'react-icons/fa';
 
 interface Node {
   id: string;
@@ -459,22 +458,22 @@ const NodeStatus: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const getNodeIcon = (type: string) => {
+  const getNodeIcon = (type: string): string => {
     switch (type) {
-      case 'NameNode': return <FaServer />;
-      case 'DataNode': return <FaDatabase />;
-      case 'ResourceManager': return <FaCogs />;
-      case 'NodeManager': return <FaNetworkWired />;
-      default: return <FaServer />;
+      case 'NameNode': return '🖥️';
+      case 'DataNode': return '💾';
+      case 'ResourceManager': return '⚙️';
+      case 'NodeManager': return '🔧';
+      default: return '🖥️';
     }
   };
 
-  const getHealthIcon = (health: string) => {
+  const getHealthIcon = (health: string): string => {
     switch (health) {
-      case 'healthy': return <FaCheckCircle />;
-      case 'warning': return <FaExclamationTriangle />;
-      case 'critical': return <FaTimesCircle />;
-      default: return <FaCheckCircle />;
+      case 'healthy': return '✅';
+      case 'warning': return '⚠️';
+      case 'critical': return '❌';
+      default: return '✅';
     }
   };
 
@@ -554,7 +553,7 @@ const NodeStatus: React.FC = () => {
                 <MetricsGrid>
                   <MetricItem>
                     <MetricLabel>
-                      <span><FaMicrochip style={{ marginRight: '0.5rem' }} />CPU</span>
+                      <span><span style={{ marginRight: '0.5rem' }}>🔧</span>CPU</span>
                       <span>{node.metrics.cpuUsage.toFixed(1)}%</span>
                     </MetricLabel>
                     <MetricBar>
@@ -569,7 +568,7 @@ const NodeStatus: React.FC = () => {
 
                   <MetricItem>
                     <MetricLabel>
-                      <span><FaMemory style={{ marginRight: '0.5rem' }} />Memory</span>
+                      <span><span style={{ marginRight: '0.5rem' }}>💾</span>Memory</span>
                       <span>{node.metrics.memoryUsage.toFixed(1)}%</span>
                     </MetricLabel>
                     <MetricBar>
@@ -584,7 +583,7 @@ const NodeStatus: React.FC = () => {
 
                   <MetricItem>
                     <MetricLabel>
-                      <span><FaHdd style={{ marginRight: '0.5rem' }} />Disk</span>
+                      <span><span style={{ marginRight: '0.5rem' }}>💿</span>Disk</span>
                       <span>{node.metrics.diskUsage.toFixed(1)}%</span>
                     </MetricLabel>
                     <MetricBar>
@@ -677,7 +676,7 @@ const NodeStatus: React.FC = () => {
                 fontSize: '0.8rem', 
                 color: '#7f8c8d',
                 display: 'flex',
-                justify: 'space-between',
+                justifyContent: 'space-between',
                 paddingTop: '1rem',
                 borderTop: '1px solid #ecf0f1'
               }}>

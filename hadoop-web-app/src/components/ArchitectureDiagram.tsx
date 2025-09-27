@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { FaServer, FaDatabase, FaCogs, FaNetworkWired } from 'react-icons/fa';
 
 const DiagramContainer = styled.div`
   display: flex;
@@ -137,7 +136,7 @@ const ArchitectureDiagram: React.FC = () => {
       id: 'namenode',
       title: 'NameNode',
       description: 'HDFS Master - Manages metadata and namespace',
-      icon: 'FaServer',
+      icon: '🖥️',
       details: 'The NameNode is the master node in HDFS that manages the file system namespace and regulates access to files by clients.',
       port: '9870'
     },
@@ -145,7 +144,7 @@ const ArchitectureDiagram: React.FC = () => {
       id: 'datanode',
       title: 'DataNode',
       description: 'HDFS Worker - Stores actual file blocks',
-      icon: 'FaDatabase',
+      icon: '💾',
       details: 'DataNodes store the actual data blocks of files and serve read/write requests from clients.',
       port: '9864'
     },
@@ -153,7 +152,7 @@ const ArchitectureDiagram: React.FC = () => {
       id: 'resourcemanager',
       title: 'ResourceManager',
       description: 'YARN Master - Manages cluster resources',
-      icon: 'FaCogs',
+      icon: '⚙️',
       details: 'The ResourceManager is the master daemon that manages resources and schedules applications running on YARN.',
       port: '8088'
     },
@@ -161,21 +160,11 @@ const ArchitectureDiagram: React.FC = () => {
       id: 'nodemanager',
       title: 'NodeManager',
       description: 'YARN Worker - Executes tasks on nodes',
-      icon: 'FaNetworkWired',
+      icon: '🔧',
       details: 'NodeManagers run on each node and manage containers, monitor resource usage, and report to ResourceManager.',
       port: '8042'
     }
   ];
-
-  const getIcon = (iconName: string) => {
-    switch (iconName) {
-      case 'FaServer': return <FaServer />;
-      case 'FaDatabase': return <FaDatabase />;
-      case 'FaCogs': return <FaCogs />;
-      case 'FaNetworkWired': return <FaNetworkWired />;
-      default: return <FaServer />;
-    }
-  };
 
   const dataFlow = [
     'Client requests file operation from NameNode',
@@ -209,7 +198,7 @@ const ArchitectureDiagram: React.FC = () => {
             whileHover={{ scale: 1.05, rotateY: 5 }}
             whileTap={{ scale: 0.95 }}
           >
-            <NodeIcon>{getIcon(node.icon)}</NodeIcon>
+            <NodeIcon>{node.icon}</NodeIcon>
             <NodeTitle>{node.title}</NodeTitle>
             <NodeDescription>{node.description}</NodeDescription>
             <div style={{ marginTop: '0.5rem', fontSize: '0.8rem', opacity: 0.8 }}>

@@ -1,7 +1,6 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaFolder, FaFile, FaUpload, FaDownload, FaTrash, FaPlus, FaHome } from 'react-icons/fa';
 import {
   DndContext,
   closestCenter,
@@ -12,7 +11,6 @@ import {
   DragEndEvent,
 } from '@dnd-kit/core';
 import {
-  arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
@@ -221,7 +219,7 @@ const SortableFileItem: React.FC<{ item: FileSystemItem; onItemClick: (item: Fil
     >
       <FileInfo>
         <FileIcon type={item.type}>
-          {item.type === 'folder' ? <FaFolder /> : <FaFile />}
+          {item.type === 'folder' ? '📁' : '📄'}
         </FileIcon>
         <FileName>{item.name}</FileName>
       </FileInfo>
@@ -408,36 +406,38 @@ const HDFSFileBrowser: React.FC = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <FaUpload /> Upload
+            ⬆️ Upload
           </ToolbarButton>
           <ToolbarButton
             disabled={selectedItems.length === 0}
             whileHover={{ scale: selectedItems.length > 0 ? 1.05 : 1 }}
             whileTap={{ scale: selectedItems.length > 0 ? 0.95 : 1 }}
           >
-            <FaDownload /> Download
+            ⬇️ Download
           </ToolbarButton>
           <ToolbarButton
             disabled={selectedItems.length === 0}
             whileHover={{ scale: selectedItems.length > 0 ? 1.05 : 1 }}
             whileTap={{ scale: selectedItems.length > 0 ? 0.95 : 1 }}
           >
-            <FaTrash /> Delete
+            🗑️ Delete
           </ToolbarButton>
           <ToolbarButton
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <FaPlus /> New Folder
+            ➕ New Folder
           </ToolbarButton>
         </Toolbar>
       </Header>
 
       <PathBar>
-        <FaHome 
-          style={{ color: '#3498db', cursor: 'pointer' }} 
+        <span 
+          style={{ color: '#3498db', cursor: 'pointer' }}
           onClick={() => navigateToPath('/')}
-        />
+        >
+          🏠
+        </span>
         {getPathSegments().map((segment, index) => (
           <React.Fragment key={segment.path}>
             {index > 0 && <span style={{ color: '#bdc3c7' }}>/</span>}
@@ -502,7 +502,7 @@ const HDFSFileBrowser: React.FC = () => {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
       >
-        <FaUpload style={{ fontSize: '2rem', marginBottom: '0.5rem' }} />
+        <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>⬆️</div>
         <div>Drop files here to upload to HDFS</div>
         <div style={{ fontSize: '0.9rem', marginTop: '0.5rem', opacity: 0.7 }}>
           Files will be automatically replicated across DataNodes

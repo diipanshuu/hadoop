@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { LineChart, Line, AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
-import { FaServer, FaMemory, FaMicrochip, FaHdd, FaNetworkWired, FaChartLine } from 'react-icons/fa';
 
 interface MetricData {
   timestamp: string;
@@ -372,7 +371,7 @@ const ClusterMonitoring: React.FC = () => {
         >
           <MetricHeader>
             <MetricIcon color="#3498db">
-              <FaServer />
+              🖥️
             </MetricIcon>
             <MetricTitle>Active Nodes</MetricTitle>
           </MetricHeader>
@@ -387,7 +386,7 @@ const ClusterMonitoring: React.FC = () => {
         >
           <MetricHeader>
             <MetricIcon color="#2ecc71">
-              <FaMicrochip />
+              🔧
             </MetricIcon>
             <MetricTitle>CPU Cores</MetricTitle>
           </MetricHeader>
@@ -402,7 +401,7 @@ const ClusterMonitoring: React.FC = () => {
         >
           <MetricHeader>
             <MetricIcon color="#9b59b6">
-              <FaMemory />
+              💾
             </MetricIcon>
             <MetricTitle>Memory</MetricTitle>
           </MetricHeader>
@@ -417,7 +416,7 @@ const ClusterMonitoring: React.FC = () => {
         >
           <MetricHeader>
             <MetricIcon color="#e74c3c">
-              <FaChartLine />
+              📈
             </MetricIcon>
             <MetricTitle>Active Jobs</MetricTitle>
           </MetricHeader>

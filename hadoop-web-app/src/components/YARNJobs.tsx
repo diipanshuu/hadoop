@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaPlay, FaPause, FaStop, FaRedo, FaClock, FaCheckCircle, FaTimesCircle, FaSpinner } from 'react-icons/fa';
 
 interface YARNJob {
   id: string;
@@ -353,14 +352,14 @@ const YARNJobs: React.FC = () => {
     return () => clearInterval(interval);
   }, [autoRefresh]);
 
-  const getStatusIcon = (status: string) => {
+  const getStatusIcon = (status: string): string => {
     switch (status) {
-      case 'RUNNING': return <FaSpinner className="spinner" />;
-      case 'FINISHED': return <FaCheckCircle />;
-      case 'FAILED': return <FaTimesCircle />;
-      case 'KILLED': return <FaStop />;
-      case 'ACCEPTED': return <FaClock />;
-      default: return <FaClock />;
+      case 'RUNNING': return '⏳';
+      case 'FINISHED': return '✅';
+      case 'FAILED': return '❌';
+      case 'KILLED': return '⏹️';
+      case 'ACCEPTED': return '🕐';
+      default: return '🕐';
     }
   };
 
@@ -415,7 +414,7 @@ const YARNJobs: React.FC = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <FaPlay /> Submit Job
+            ▶️ Submit Job
           </ControlButton>
           <ControlButton
             onClick={() => setAutoRefresh(!autoRefresh)}
@@ -423,7 +422,7 @@ const YARNJobs: React.FC = () => {
             whileTap={{ scale: 0.95 }}
             style={{ background: autoRefresh ? '#2ecc71' : '#95a5a6' }}
           >
-            <FaRedo /> Auto Refresh: {autoRefresh ? 'ON' : 'OFF'}
+            🔄 Auto Refresh: {autoRefresh ? 'ON' : 'OFF'}
           </ControlButton>
         </Controls>
       </Header>
