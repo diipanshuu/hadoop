@@ -1,20 +1,25 @@
 services:
   namenode:
-    image: apache/hadoop:3.3.6
+    image: bde2020/hadoop-namenode:2.0.0-hadoop3.2.1-java8
     container_name: hadoop-namenode
     hostname: namenode
     ports:
       - "9870:9870"  # NameNode Web UI
       - "8020:8020"  # NameNode RPC
     environment:
-      CLUSTER_NAME: hadoop-cluster
-    env_file:
-      - ./hadoop.env
+      - CLUSTER_NAME=hadoop-cluster
+      - CORE_CONF_fs_defaultFS=hdfs://namenode:8020
+      - CORE_CONF_hadoop_http_staticuser_user=root
+      - CORE_CONF_hadoop_proxyuser_hue_hosts=*
+      - CORE_CONF_hadoop_proxyuser_hue_groups=*
+      - HDFS_CONF_dfs_webhdfs_enabled=true
+      - HDFS_CONF_dfs_permissions_enabled=false
+      - HDFS_CONF_dfs_namenode_name_dir=/hadoop/dfs/name
+      - HDFS_CONF_dfs_replication=2
     volumes:
       - namenode-data:/hadoop/dfs/name
     networks:
       - hadoop-network
-    command: ["hdfs", "namenode"]
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:9870/ || exit 1"]
       interval: 30s
@@ -22,13 +27,19 @@ services:
       retries: 3
 
   datanode1:
-    image: apache/hadoop:3.3.6
+    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
     container_name: hadoop-datanode1
     hostname: datanode1
     ports:
       - "9864:9864"  # DataNode Web UI
-    env_file:
-      - ./hadoop.env
+    environment:
+      - CORE_CONF_fs_defaultFS=hdfs://namenode:8020
+      - CORE_CONF_hadoop_http_staticuser_user=root
+      - HDFS_CONF_dfs_webhdfs_enabled=true
+      - HDFS_CONF_dfs_permissions_enabled=false
+      - HDFS_CONF_dfs_datanode_data_dir=/hadoop/dfs/data
+      - HDFS_CONF_dfs_datanode_http_address=0.0.0.0:9864
+      - HDFS_CONF_dfs_replication=2
     volumes:
       - datanode1-data:/hadoop/dfs/data
     networks:
@@ -36,7 +47,6 @@ services:
     depends_on:
       namenode:
         condition: service_healthy
-    command: ["hdfs", "datanode"]
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:9864/ || exit 1"]
       interval: 30s
@@ -44,13 +54,19 @@ services:
       retries: 3
 
   datanode2:
-    image: apache/hadoop:3.3.6
+    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
     container_name: hadoop-datanode2
     hostname: datanode2
     ports:
       - "9865:9864"  # DataNode Web UI (different host port)
-    env_file:
-      - ./hadoop.env
+    environment:
+      - CORE_CONF_fs_defaultFS=hdfs://namenode:8020
+      - CORE_CONF_hadoop_http_staticuser_user=root
+      - HDFS_CONF_dfs_webhdfs_enabled=true
+      - HDFS_CONF_dfs_permissions_enabled=false
+      - HDFS_CONF_dfs_datanode_data_dir=/hadoop/dfs/data
+      - HDFS_CONF_dfs_datanode_http_address=0.0.0.0:9864
+      - HDFS_CONF_dfs_replication=2
     volumes:
       - datanode2-data:/hadoop/dfs/data
     networks:
@@ -58,7 +74,6 @@ services:
     depends_on:
       namenode:
         condition: service_healthy
-    command: ["hdfs", "datanode"]
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:9864/ || exit 1"]
       interval: 30s
@@ -66,20 +81,31 @@ services:
       retries: 3
 
   resourcemanager:
-    image: apache/hadoop:3.3.6
+    image: bde2020/hadoop-resourcemanager:2.0.0-hadoop3.2.1-java8
     container_name: hadoop-resourcemanager
     hostname: resourcemanager
     ports:
       - "8088:8088"  # ResourceManager Web UI
       - "8032:8032"  # ResourceManager RPC
-    env_file:
-      - ./hadoop.env
+    environment:
+      - CORE_CONF_fs_defaultFS=hdfs://namenode:8020
+      - CORE_CONF_hadoop_http_staticuser_user=root
+      - YARN_CONF_yarn_resourcemanager_hostname=resourcemanager
+      - YARN_CONF_yarn_resourcemanager_bind_host=0.0.0.0
+      - YARN_CONF_yarn_resourcemanager_address=resourcemanager:8032
+      - YARN_CONF_yarn_resourcemanager_scheduler_address=resourcemanager:8030
+      - YARN_CONF_yarn_resourcemanager_resource_tracker_address=resourcemanager:8031
+      - YARN_CONF_yarn_resourcemanager_admin_address=resourcemanager:8033
+      - YARN_CONF_yarn_resourcemanager_webapp_address=resourcemanager:8088
+      - YARN_CONF_yarn_timeline_service_enabled=false
+      - YARN_CONF_yarn_nodemanager_resource_memory_mb=4096
+      - YARN_CONF_yarn_scheduler_maximum_allocation_mb=4096
+      - YARN_CONF_yarn_nodemanager_vmem_check_enabled=false
     networks:
       - hadoop-network
     depends_on:
       namenode:
         condition: service_healthy
-    command: ["yarn", "resourcemanager"]
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8088/ || exit 1"]
       interval: 30s
@@ -87,19 +113,32 @@ services:
       retries: 3
 
   nodemanager1:
-    image: apache/hadoop:3.3.6
+    image: bde2020/hadoop-nodemanager:2.0.0-hadoop3.2.1-java8
     container_name: hadoop-nodemanager1
     hostname: nodemanager1
     ports:
       - "8042:8042"  # NodeManager Web UI
-    env_file:
-      - ./hadoop.env
+    environment:
+      - CORE_CONF_fs_defaultFS=hdfs://namenode:8020
+      - CORE_CONF_hadoop_http_staticuser_user=root
+      - YARN_CONF_yarn_resourcemanager_hostname=resourcemanager
+      - YARN_CONF_yarn_resourcemanager_address=resourcemanager:8032
+      - YARN_CONF_yarn_resourcemanager_scheduler_address=resourcemanager:8030
+      - YARN_CONF_yarn_resourcemanager_resource_tracker_address=resourcemanager:8031
+      - YARN_CONF_yarn_nodemanager_aux_services=mapreduce_shuffle
+      - YARN_CONF_yarn_nodemanager_aux_services_mapreduce_shuffle_class=org.apache.hadoop.mapred.ShuffleHandler
+      - YARN_CONF_yarn_nodemanager_bind_host=0.0.0.0
+      - YARN_CONF_yarn_nodemanager_hostname=nodemanager1
+      - YARN_CONF_yarn_nodemanager_webapp_address=nodemanager1:8042
+      - YARN_CONF_yarn_nodemanager_resource_memory_mb=4096
+      - YARN_CONF_yarn_nodemanager_resource_cpu_vcores=4
+      - YARN_CONF_yarn_nodemanager_vmem_check_enabled=false
+      - YARN_CONF_yarn_nodemanager_disk_health_checker_enable=false
     networks:
       - hadoop-network
     depends_on:
       resourcemanager:
         condition: service_healthy
-    command: ["yarn", "nodemanager"]
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8042/ || exit 1"]
       interval: 30s
@@ -107,19 +146,23 @@ services:
       retries: 3
 
   historyserver:
-    image: apache/hadoop:3.3.6
+    image: bde2020/hadoop-historyserver:2.0.0-hadoop3.2.1-java8
     container_name: hadoop-historyserver
     hostname: historyserver
     ports:
       - "19888:19888"  # History Server Web UI
-    env_file:
-      - ./hadoop.env
+    environment:
+      - CORE_CONF_fs_defaultFS=hdfs://namenode:8020
+      - CORE_CONF_hadoop_http_staticuser_user=root
+      - YARN_CONF_yarn_resourcemanager_hostname=resourcemanager
+      - MAPRED_CONF_mapreduce_framework_name=yarn
+      - MAPRED_CONF_mapreduce_jobhistory_address=historyserver:10020
+      - MAPRED_CONF_mapreduce_jobhistory_webapp_address=historyserver:19888
     networks:
       - hadoop-network
     depends_on:
       namenode:
         condition: service_healthy
-    command: ["mapred", "historyserver"]
 
   hue:
     image: gethue/hue:latest
@@ -137,7 +180,6 @@ services:
       - HUE_CONF_hadoop_yarn_clusters_default_resourcemanager_api_url=http://resourcemanager:8088
       - HUE_CONF_hadoop_yarn_clusters_default_history_server_api_url=http://historyserver:19888
     volumes:
-      - ./hue-config:/usr/share/hue/desktop/conf
       - hue-data:/usr/share/hue/data
     networks:
       - hadoop-network

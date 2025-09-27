@@ -42,6 +42,7 @@ EOF'
 
 echo ""
 echo "2. Uploading input files to HDFS..."
+docker exec $NAMENODE_CONTAINER hdfs dfs -rm -f /user/wordcount/input/file1.txt /user/wordcount/input/file2.txt 2>/dev/null || true
 docker exec $NAMENODE_CONTAINER hdfs dfs -put /tmp/file1.txt /user/wordcount/input/
 docker exec $NAMENODE_CONTAINER hdfs dfs -put /tmp/file2.txt /user/wordcount/input/
 
@@ -51,7 +52,8 @@ docker exec $NAMENODE_CONTAINER hdfs dfs -ls /user/wordcount/input/
 
 echo ""
 echo "4. Running WordCount MapReduce job..."
-docker exec $RESOURCEMANAGER_CONTAINER hadoop jar /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar wordcount /user/wordcount/input /user/wordcount/output
+docker exec $NAMENODE_CONTAINER hdfs dfs -rm -r /user/wordcount/output 2>/dev/null || true
+docker exec $RESOURCEMANAGER_CONTAINER hadoop jar /opt/hadoop-3.2.1/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.2.1.jar wordcount /user/wordcount/input /user/wordcount/output
 
 echo ""
 echo "5. Checking job completion and output..."

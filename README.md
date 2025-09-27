@@ -2,6 +2,14 @@
 
 A complete Apache Hadoop cluster setup using Docker Compose for development and learning purposes. This setup includes HDFS (NameNode + DataNodes), YARN (ResourceManager + NodeManager), MapReduce History Server, and Hue web interface.
 
+**Features:**
+- **HDFS**: Distributed file system with 2 DataNodes for replication
+- **YARN**: Resource management with ResourceManager and NodeManager
+- **MapReduce**: Job execution with History Server for tracking
+- **Hue**: Web-based interface for interacting with Hadoop ecosystem
+- **One-command startup**: Simple deployment with health checks
+- **Example scripts**: Ready-to-use HDFS operations and MapReduce examples
+
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -42,12 +50,14 @@ Once the cluster is running, access these web interfaces:
 
 The cluster consists of the following services:
 
-- **NameNode**: HDFS metadata management
+- **NameNode**: HDFS metadata management (using bde2020/hadoop-namenode)
 - **DataNode1 & DataNode2**: HDFS data storage (replication factor: 2)
 - **ResourceManager**: YARN resource management
-- **NodeManager**: YARN node resource management
+- **NodeManager**: YARN node resource management  
 - **History Server**: MapReduce job history
 - **Hue**: Web-based user interface for Hadoop ecosystem
+
+All services use proven Docker images from the bde2020 project for reliability.
 
 ## 🔧 Configuration
 
