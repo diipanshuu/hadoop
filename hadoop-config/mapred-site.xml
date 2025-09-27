@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+    <!-- MapReduce framework -->
+    <property>
+        <name>mapreduce.framework.name</name>
+        <value>yarn</value>
+        <description>MapReduce framework name</description>
+    </property>
+    
+    <!-- JobHistory Server settings -->
+    <property>
+        <name>mapreduce.jobhistory.address</name>
+        <value>historyserver:10020</value>
+        <description>JobHistory Server RPC address</description>
+    </property>
+    
+    <property>
+        <name>mapreduce.jobhistory.webapp.address</name>
+        <value>historyserver:19888</value>
+        <description>JobHistory Server web address</description>
+    </property>
+    
+    <property>
+        <name>mapreduce.jobhistory.intermediate-done-dir</name>
+        <value>/mr-history/tmp</value>
+        <description>Intermediate done directory</description>
+    </property>
+    
+    <property>
+        <name>mapreduce.jobhistory.done-dir</name>
+        <value>/mr-history/done</value>
+        <description>Done directory</description>
+    </property>
+    
+    <!-- Map and Reduce task settings -->
+    <property>
+        <name>mapreduce.map.memory.mb</name>
+        <value>1536</value>
+        <description>Memory for map tasks</description>
+    </property>
+    
+    <property>
+        <name>mapreduce.reduce.memory.mb</name>
+        <value>3072</value>
+        <description>Memory for reduce tasks</description>
+    </property>
+    
+    <property>
+        <name>mapreduce.map.java.opts</name>
+        <value>-Xmx1024m</value>
+        <description>Java options for map tasks</description>
+    </property>
+    
+    <property>
+        <name>mapreduce.reduce.java.opts</name>
+        <value>-Xmx2560m</value>
+        <description>Java options for reduce tasks</description>
+    </property>
+    
+    <!-- Application Master settings -->
+    <property>
+        <name>yarn.app.mapreduce.am.resource.mb</name>
+        <value>1536</value>
+        <description>Memory for ApplicationMaster</description>
+    </property>
+    
+    <property>
+        <name>yarn.app.mapreduce.am.command-opts</name>
+        <value>-Xmx1024m</value>
+        <description>Java options for ApplicationMaster</description>
+    </property>
+    
+    <!-- Environment variables -->
+    <property>
+        <name>yarn.app.mapreduce.am.env</name>
+        <value>HADOOP_MAPRED_HOME=$HADOOP_MAPRED_HOME</value>
+        <description>Environment variables for ApplicationMaster</description>
+    </property>
+    
+    <property>
+        <name>mapreduce.map.env</name>
+        <value>HADOOP_MAPRED_HOME=$HADOOP_MAPRED_HOME</value>
+        <description>Environment variables for map tasks</description>
+    </property>
+    
+    <property>
+        <name>mapreduce.reduce.env</name>
+        <value>HADOOP_MAPRED_HOME=$HADOOP_MAPRED_HOME</value>
+        <description>Environment variables for reduce tasks</description>
+    </property>
+    
+    <!-- Compression settings -->
+    <property>
+        <name>mapreduce.map.output.compress</name>
+        <value>true</value>
+        <description>Enable compression for map output</description>
+    </property>
+    
+    <property>
+        <name>mapreduce.map.output.compress.codec</name>
+        <value>org.apache.hadoop.io.compress.SnappyCodec</value>
+        <description>Compression codec for map output</description>
+    </property>
+    
+    <!-- Shuffle settings -->
+    <property>
+        <name>mapreduce.task.io.sort.mb</name>
+        <value>512</value>
+        <description>Sort buffer size</description>
+    </property>
+    
+    <property>
+        <name>mapreduce.task.io.sort.factor</name>
+        <value>100</value>
+        <description>Sort factor</description>
+    </property>
+</configuration>

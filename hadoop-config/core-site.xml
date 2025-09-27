@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+    <!-- Default file system URI -->
+    <property>
+        <name>fs.defaultFS</name>
+        <value>hdfs://namenode:8020</value>
+        <description>The default file system URI</description>
+    </property>
+    
+    <!-- Hadoop temporary directory -->
+    <property>
+        <name>hadoop.tmp.dir</name>
+        <value>/tmp/hadoop-${user.name}</value>
+        <description>A base for other temporary directories</description>
+    </property>
+    
+    <!-- Enable WebHDFS -->
+    <property>
+        <name>dfs.webhdfs.enabled</name>
+        <value>true</value>
+        <description>Enable WebHDFS REST API</description>
+    </property>
+    
+    <!-- HTTP static user -->
+    <property>
+        <name>hadoop.http.staticuser.user</name>
+        <value>root</value>
+        <description>Default user for HTTP static resources</description>
+    </property>
+    
+    <!-- Proxy user settings for Hue -->
+    <property>
+        <name>hadoop.proxyuser.hue.hosts</name>
+        <value>*</value>
+        <description>Hosts allowed for Hue proxy user</description>
+    </property>
+    
+    <property>
+        <name>hadoop.proxyuser.hue.groups</name>
+        <value>*</value>
+        <description>Groups allowed for Hue proxy user</description>
+    </property>
+    
+    <!-- Security settings -->
+    <property>
+        <name>hadoop.security.authentication</name>
+        <value>simple</value>
+        <description>Authentication method</description>
+    </property>
+    
+    <property>
+        <name>hadoop.security.authorization</name>
+        <value>false</value>
+        <description>Authorization settings</description>
+    </property>
+</configuration>

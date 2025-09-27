@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+    <!-- ResourceManager hostname -->
+    <property>
+        <name>yarn.resourcemanager.hostname</name>
+        <value>resourcemanager</value>
+        <description>ResourceManager hostname</description>
+    </property>
+    
+    <!-- ResourceManager bind host -->
+    <property>
+        <name>yarn.resourcemanager.bind-host</name>
+        <value>0.0.0.0</value>
+        <description>ResourceManager bind host</description>
+    </property>
+    
+    <!-- ResourceManager addresses -->
+    <property>
+        <name>yarn.resourcemanager.address</name>
+        <value>resourcemanager:8032</value>
+        <description>ResourceManager RPC address</description>
+    </property>
+    
+    <property>
+        <name>yarn.resourcemanager.scheduler.address</name>
+        <value>resourcemanager:8030</value>
+        <description>ResourceManager scheduler address</description>
+    </property>
+    
+    <property>
+        <name>yarn.resourcemanager.resource-tracker.address</name>
+        <value>resourcemanager:8031</value>
+        <description>ResourceManager resource tracker address</description>
+    </property>
+    
+    <property>
+        <name>yarn.resourcemanager.admin.address</name>
+        <value>resourcemanager:8033</value>
+        <description>ResourceManager admin address</description>
+    </property>
+    
+    <property>
+        <name>yarn.resourcemanager.webapp.address</name>
+        <value>resourcemanager:8088</value>
+        <description>ResourceManager web application address</description>
+    </property>
+    
+    <!-- NodeManager settings -->
+    <property>
+        <name>yarn.nodemanager.aux-services</name>
+        <value>mapreduce_shuffle</value>
+        <description>Auxiliary services for NodeManager</description>
+    </property>
+    
+    <property>
+        <name>yarn.nodemanager.aux-services.mapreduce_shuffle.class</name>
+        <value>org.apache.hadoop.mapred.ShuffleHandler</value>
+        <description>Shuffle handler class</description>
+    </property>
+    
+    <property>
+        <name>yarn.nodemanager.bind-host</name>
+        <value>0.0.0.0</value>
+        <description>NodeManager bind host</description>
+    </property>
+    
+    <!-- Resource settings -->
+    <property>
+        <name>yarn.nodemanager.resource.memory-mb</name>
+        <value>4096</value>
+        <description>Memory available for containers</description>
+    </property>
+    
+    <property>
+        <name>yarn.scheduler.maximum-allocation-mb</name>
+        <value>4096</value>
+        <description>Maximum memory allocation</description>
+    </property>
+    
+    <property>
+        <name>yarn.nodemanager.resource.cpu-vcores</name>
+        <value>4</value>
+        <description>CPU cores available for containers</description>
+    </property>
+    
+    <property>
+        <name>yarn.scheduler.maximum-allocation-vcores</name>
+        <value>4</value>
+        <description>Maximum CPU allocation</description>
+    </property>
+    
+    <!-- Virtual memory settings -->
+    <property>
+        <name>yarn.nodemanager.vmem-check-enabled</name>
+        <value>false</value>
+        <description>Disable virtual memory checking</description>
+    </property>
+    
+    <property>
+        <name>yarn.nodemanager.vmem-pmem-ratio</name>
+        <value>2.1</value>
+        <description>Virtual memory to physical memory ratio</description>
+    </property>
+    
+    <!-- Application settings -->
+    <property>
+        <name>yarn.application.classpath</name>
+        <value>$HADOOP_CONF_DIR:$HADOOP_COMMON_HOME/share/hadoop/common/*:$HADOOP_COMMON_HOME/share/hadoop/common/lib/*:$HADOOP_HDFS_HOME/share/hadoop/hdfs/*:$HADOOP_HDFS_HOME/share/hadoop/hdfs/lib/*:$HADOOP_MAPRED_HOME/share/hadoop/mapreduce/*:$HADOOP_MAPRED_HOME/share/hadoop/mapreduce/lib/*:$HADOOP_YARN_HOME/share/hadoop/yarn/*:$HADOOP_YARN_HOME/share/hadoop/yarn/lib/*</value>
+        <description>Application classpath</description>
+    </property>
+    
+    <!-- Log settings -->
+    <property>
+        <name>yarn.log-aggregation-enable</name>
+        <value>true</value>
+        <description>Enable log aggregation</description>
+    </property>
+    
+    <property>
+        <name>yarn.log.server.url</name>
+        <value>http://historyserver:19888/jobhistory/logs</value>
+        <description>Log server URL</description>
+    </property>
+    
+    <!-- Timeline service (disabled for simplicity) -->
+    <property>
+        <name>yarn.timeline-service.enabled</name>
+        <value>false</value>
+        <description>Disable timeline service</description>
+    </property>
+    
+    <!-- Disk health checker -->
+    <property>
+        <name>yarn.nodemanager.disk-health-checker.enable</name>
+        <value>false</value>
+        <description>Disable disk health checker for development</description>
+    </property>
+</configuration>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+    <!-- NameNode directories -->
+    <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>/hadoop/dfs/name</value>
+        <description>Directories for NameNode metadata</description>
+    </property>
+    
+    <!-- DataNode directories -->
+    <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>/hadoop/dfs/data</value>
+        <description>Directories for DataNode data</description>
+    </property>
+    
+    <!-- Replication factor -->
+    <property>
+        <name>dfs.replication</name>
+        <value>2</value>
+        <description>Default block replication factor</description>
+    </property>
+    
+    <!-- Block size -->
+    <property>
+        <name>dfs.blocksize</name>
+        <value>268435456</value>
+        <description>Default block size (256MB)</description>
+    </property>
+    
+    <!-- Disable permissions -->
+    <property>
+        <name>dfs.permissions.enabled</name>
+        <value>false</value>
+        <description>Disable HDFS permissions for development</description>
+    </property>
+    
+    <!-- Enable WebHDFS -->
+    <property>
+        <name>dfs.webhdfs.enabled</name>
+        <value>true</value>
+        <description>Enable WebHDFS REST API</description>
+    </property>
+    
+    <!-- NameNode HTTP address -->
+    <property>
+        <name>dfs.namenode.http-address</name>
+        <value>namenode:9870</value>
+        <description>NameNode HTTP address</description>
+    </property>
+    
+    <!-- NameNode HTTPS address -->
+    <property>
+        <name>dfs.namenode.https-address</name>
+        <value>namenode:9871</value>
+        <description>NameNode HTTPS address</description>
+    </property>
+    
+    <!-- DataNode HTTP address -->
+    <property>
+        <name>dfs.datanode.http.address</name>
+        <value>0.0.0.0:9864</value>
+        <description>DataNode HTTP address</description>
+    </property>
+    
+    <!-- DataNode HTTPS address -->
+    <property>
+        <name>dfs.datanode.https.address</name>
+        <value>0.0.0.0:9865</value>
+        <description>DataNode HTTPS address</description>
+    </property>
+    
+    <!-- Safe mode settings -->
+    <property>
+        <name>dfs.safemode.threshold.pct</name>
+        <value>0.9f</value>
+        <description>Safe mode threshold</description>
+    </property>
+    
+    <!-- Heartbeat settings -->
+    <property>
+        <name>dfs.heartbeat.interval</name>
+        <value>3</value>
+        <description>Heartbeat interval in seconds</description>
+    </property>
+    
+    <!-- Client settings -->
+    <property>
+        <name>dfs.client.use.datanode.hostname</name>
+        <value>true</value>
+        <description>Use DataNode hostname for client connections</description>
+    </property>
+</configuration>

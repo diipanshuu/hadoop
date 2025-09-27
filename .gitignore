@@ -1,0 +1,40 @@
+# Docker volumes and runtime data
+.docker/
+docker-data/
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+.tmp/
+tmp/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Docker Compose override files
+docker-compose.override.yml
+docker-compose.local.yml
+
+# Environment files
+.env
+.env.local
+
+# Backup files
+*.bak
+*.backup
